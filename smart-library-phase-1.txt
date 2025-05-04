@@ -1,0 +1,22 @@
+smart-library/
+├── config/
+│   └── db.js
+├── controllers/
+│   ├── bookController.js
+│   ├── loanController.js
+│   ├── statsController.js
+│   └── userController.js
+├── models/
+│   ├── Book.js
+│   ├── Loan.js
+│   └── User.js
+├── routes/
+│   ├── bookRoutes.js
+│   ├── index.js
+│   ├── loanRoutes.js
+│   ├── statsRoutes.js
+│   └── userRoutes.js
+├── middlewares/
+│   └── errorHandler.js
+├── app.js
+└── package.json
