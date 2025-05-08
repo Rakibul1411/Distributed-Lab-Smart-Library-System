@@ -24,7 +24,7 @@ const LoanSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['ACTIVE', 'RETURNED', 'OVERDUE'],
+    enum: ['ACTIVE', 'RETURNED'],
     default: 'ACTIVE',
   },
   original_due_date: {
