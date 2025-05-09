@@ -17,16 +17,7 @@ export const issueBook = async (req, res, next) => {
       });
     }
 
-    const responseData = {
-      id: loan.data._id,
-      user_id: loan.data.user,
-      book_id: loan.data.book,
-      issue_date: loan.data.issue_date,
-      due_date: loan.data.due_date,
-      status: loan.data.status
-    };
-
-    res.status(201).json(responseData);
+    res.status(201).json(loan.data);
   } catch (err) {
     next(err);
   }
@@ -44,17 +35,7 @@ export const returnBook = async (req, res, next) => {
       ).json({ success: false, error: loan.error });
     }
 
-    const responseData = {
-      id: loan.data._id,
-      user_id: loan.data.user,
-      book_id: loan.data.book,
-      issue_date: loan.data.issue_date,
-      due_date: loan.data.due_date,
-      return_date: loan.data.return_date,
-      status: loan.data.status,
-    };
-
-    res.status(200).json(responseData);
+    res.status(200).json(loan.data);
   } catch (err) {
     next(err);
   }
@@ -81,21 +62,7 @@ export const getUserLoans = async (req, res, next) => {
       });
     }
 
-    const loanHistory = serviceResult.data.map(loan => ({
-      id: loan._id,
-      book: {
-        id: loan.book.id,
-        title: loan.book.title,
-        author: loan.book.author
-      },
-      issue_date: loan.issue_date,
-      due_date: loan.due_date,
-      return_date: loan.return_date || null,
-      status: loan.status
-    }));
-
-    return res.status(200).json(loanHistory);
-
+    return res.status(200).json(serviceResult.data);
   } catch (err) {
     next(err);
   }
@@ -113,16 +80,7 @@ export const getOverdueLoans = async (req, res, next) => {
       });
     }
 
-    const overdueLoans = result.data.map(loan => ({
-      id: loan._id,
-      user: loan.user,
-      book: loan.book,
-      issue_date: loan.issue_date,
-      due_date: loan.due_date,
-      days_overdue: loan.days_overdue
-    }));
-
-    return res.status(200).json(overdueLoans);
+    return res.status(200).json(result.data);
   } catch (err) {
     next(err);
   }
@@ -155,7 +113,6 @@ export const extendLoan = async (req, res, next) => {
   }
 };
 
-
 // Get most borrowed books
 export const getPopularBooks = async (req, res, next) => {
   try {
@@ -173,7 +130,6 @@ export const getPopularBooks = async (req, res, next) => {
   }
 };
 
-
 // Get most active users
 export const getActiveUsers = async (req, res, next) => {
   try {
@@ -190,7 +146,6 @@ export const getActiveUsers = async (req, res, next) => {
     next(err);
   }
 };
-
 
 // Get system overview statistics
 export const getSystemOverview = async (req, res, next) => {
