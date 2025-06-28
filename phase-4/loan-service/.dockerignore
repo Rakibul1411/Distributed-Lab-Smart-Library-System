@@ -1,0 +1,13 @@
+# Ignore runtime files
+node_modules
+.env
+*.log
+
+# Git and OS noise
+.git
+.gitignore
+.DS_Store
+
+# Optional
+README.md
+Dockerfile

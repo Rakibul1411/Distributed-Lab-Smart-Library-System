@@ -1,7 +1,7 @@
 import { CircuitBreaker } from './circuitBreaker.js';
 
-const userServiceBreaker = new CircuitBreaker('http://localhost:8081');
-const bookServiceBreaker = new CircuitBreaker('http://localhost:8082');
+const userServiceBreaker = new CircuitBreaker('http://localhost:4000');
+const bookServiceBreaker = new CircuitBreaker('http://localhost:4001');
 
 class HttpService {
   static async getUser(userId) {
