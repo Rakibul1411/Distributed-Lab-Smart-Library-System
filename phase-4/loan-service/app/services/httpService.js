@@ -1,6 +1,6 @@
 import { CircuitBreaker } from './circuitBreaker.js';
 
-const circuitBreaker = new CircuitBreaker('http://host.docker.internal:80');
+const circuitBreaker = new CircuitBreaker('http://nginx:80');
 
 class HttpService {
   static async getUser(userId) {
