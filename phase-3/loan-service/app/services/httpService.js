@@ -1,10 +1,5 @@
 import { CircuitBreaker } from './circuitBreaker.js';
 
-// Using Nginx as reverse proxy on port 80
-// Nginx routes:
-// - /api/users/* -> User Service
-// - /api/books/* -> Book Service
-// - /api/loans/* -> Loan Service
 const circuitBreaker = new CircuitBreaker('http://localhost:80');
 
 class HttpService {

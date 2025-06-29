@@ -1,12 +1,10 @@
 FROM node:18-slim
 
-# Set working directory inside container
-WORKDIR /app
+WORKDIR /user
 
 COPY package*.json ./
 RUN npm install
 
-# Copy rest of the source code
 COPY . .
 
 EXPOSE 8081

@@ -1,6 +1,6 @@
 FROM node:18-slim
 
-WORKDIR /app
+WORKDIR /book
 
 COPY package*.json ./
 RUN npm install
