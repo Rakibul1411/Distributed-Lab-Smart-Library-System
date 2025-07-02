@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpass
+    networks:
+      - smartlib-net
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - "8084:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: rootpass
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    depends_on:
+      - mongodb
+    networks:
+      - smartlib-net
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    env_file:
+      - ./user-service/.env
+    depends_on:
+      - mongodb
+    networks:
+      - smartlib-net
+
+  book-service:
+    build: ./book-service
+    container_name: book-service
+    ports:
+      - "8082:8082"
+    env_file:
+      - ./book-service/.env
+    depends_on:
+      - mongodb
+    networks:
+      - smartlib-net
+
+  loan-service:
+    build: ./loan-service
+    container_name: loan-service
+    ports:
+      - "8083:8083"
+    env_file:
+      - ./loan-service/.env
+    depends_on:
+      - mongodb
+    networks:
+      - smartlib-net
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - user-service
+      - book-service
+      - loan-service
+    networks:
+      - smartlib-net
+
+volumes:
+  mongo-data:
+
+networks:
+  smartlib-net:
+    driver: bridge
